@@ -65,6 +65,11 @@ h1,h2,h3{font-family:'Playfair Display',serif;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:13px 26px;border-radius:12px;font-size:13.5px;z-index:100;opacity:0;transition:.4s;box-shadow:var(--shadow-lg);}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 .toast.success{background:var(--success);}
+
+/* Hidden-ish admin link — small, low-contrast, tucked below logout */
+.admin-link-row{display:flex;justify-content:flex-end;margin-top:6px;}
+.admin-link{font-size:10px;color:#d8d3c2;text-decoration:none;letter-spacing:.3px;opacity:.6;transition:.2s;cursor:pointer;}
+.admin-link:hover{opacity:1;color:var(--gray);}
 </style>
 </head>
 <body>
@@ -125,7 +130,9 @@ h1,h2,h3{font-family:'Playfair Display',serif;}
       </div>
     </div>
   </div>
-
+<div class="admin-link-row">
+          <span class="admin-link" onclick="openAdminDashboard()">admin</span>
+        </div>
 </div>
 
 <div class="toast" id="sToast"></div>
@@ -190,6 +197,19 @@ function showToast(msg){
 
 document.addEventListener('DOMContentLoaded', renderProfile);
 window.addEventListener('storage', renderProfile);
+
+/* ---------- Admin ACCOUNT (real action) ---------- */
+
+function openAdminDashboard() {
+    const stayHere = confirm(
+        'This page is a Admin Dashboard. You are logged in as a regular user, so you cannot use this page. If you believe this is a mistake, please contact the site administrator.'
+    );
+    if (stayHere) {
+        return;
+    } else {
+        window.top.location.href = 'admin.html';
+    }
+}
 </script>
 </body>
 </html>
